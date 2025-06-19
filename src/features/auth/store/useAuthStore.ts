@@ -8,7 +8,7 @@ interface AuthStore {
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: null,
-  login: (email, _password) => {
+  login: (email) => {
     set({ user: email });
   },
   logout: () => set({ user: null }),

@@ -5,7 +5,7 @@
     outline: none;
     transition: .3s ease;
 }
-.inp:hover, input:focus {
+.inp:hover, .inp:focus {
     border-color: var(--focus-inp-border-color);
 }
 .tooltipWrapper, .btn {
@@ -20,11 +20,6 @@
 .inp.error {
     border-color: var(--error-color);
 }
-input:-webkit-autofill {
-    transition: background-color 9999s ease-in-out 0s, color 9999s ease-in-out 0s;
-    -webkit-text-fill-color: var(--text-color) !important;
-    box-shadow: 0 0 0px 1000px var(--bg-color) inset !important;
-}
-.labelCpntainer {
+.labelContainer {
     margin-bottom: 8px;
 }

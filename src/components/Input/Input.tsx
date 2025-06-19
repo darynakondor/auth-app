@@ -40,7 +40,7 @@ function Input({
 
   return (
     <>
-      <div className={styles.labelCpntainer}>
+      <div className={styles.labelContainer}>
         {label && (
           <label htmlFor={inputId} className={styles.inpLabel}>
             {label}
