@@ -10,9 +10,12 @@
 .bg-color-input {
     background-color: var(--dark-grey);
 }
-.text-color-btn {
+.text-color-dark {
     color: var(--dark-grey);
 }
 .text-color-link {
     color: var(--text-color-link);
+}
+.backdrop-color {
+    background-color: var(--backdrop-color);
 }

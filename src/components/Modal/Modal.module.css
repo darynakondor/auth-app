@@ -1,29 +1,31 @@
 .modalBackdrop {
-    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0,0,0,0.5);
     z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .modalContent {
-    position: relative;
-    background: white;
+    background: var(--text-color-primary);
     border-radius: 8px;
-    padding: 20px;
-    min-width: 300px;
-    max-width: 90%;
+    padding: 50px;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    line-height: 24px;
 }
 .modalCloseButton {
-    position: absolute;
     top: 10px;
     right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+    transition: .3s ease;
+}
+
+.modalCloseButton:hover {
+    opacity: .7;
+}
+
+@media screen and (max-width: 650px) {
+    .modalContent {
+        padding: 50px 20px;
+    }
 }

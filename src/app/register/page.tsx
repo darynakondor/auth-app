@@ -1,3 +1,4 @@
+import SignUpForm from "@/features/auth/components/SignUpForm/SignUpForm";
 import React from "react";
 
 export const metadata = {
@@ -7,7 +8,13 @@ export const metadata = {
 };
 
 function Page() {
-  return <div>Page</div>;
+  return (
+    <main className="sign-up">
+      <div className="container">
+        <SignUpForm />
+      </div>
+    </main>
+  );
 }
 
 export default Page;

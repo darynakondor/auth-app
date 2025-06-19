@@ -7,7 +7,13 @@ export const metadata = {
 };
 
 function Page() {
-  return <AuthForm />;
+  return (
+    <main className="auth">
+      <div className="container">
+        <AuthForm />
+      </div>
+    </main>
+  );
 }
 
 export default Page;

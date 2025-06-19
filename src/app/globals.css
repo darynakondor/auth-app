@@ -12,17 +12,23 @@ body {
   font-weight: 500;
   background-color: var(--bg-color-primary);
   color: var(--text-color-primary);
-  height: 100vh;
   font-size: var(--fz-s);
 }
-
-input {
+.container {
+  height: 100vh;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+input, button {
   color: inherit;
 }
 input, button {
   font-size: inherit;
   border-radius: 12px;
   border: none;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 button {
   cursor: pointer;
@@ -32,7 +38,31 @@ button {
 p {
   font-weight: 400;
 }
+.link {
+  color: var(--text-color-link);
+  position: relative;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
 
+.link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 0;
+  background-color: var(--text-color-link);
+  transition: width 0.3s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.link:hover::before {
+  width: 100%;
+}
 h1 {
   font-weight: 600;
 }
@@ -46,9 +76,20 @@ h1 {
 .absolute {
   position: absolute;
 }
+.fixed {
+  position: fixed;
+}
+.position-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .fz-l {
   font-size: var(--fz-l);
+}
+.fz-xs {
+  font-size: var(--fz-xs);
 }
 
 .flex-container {

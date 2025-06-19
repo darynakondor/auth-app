@@ -1,15 +1,30 @@
-.inpGroup {
-    flex-direction: column;
-    gap: 8px;
-}
 .inp {
+    border: 1px solid var(--dark-grey);
     width: 100%;
     padding: 15px;
     outline: none;
+    transition: .3s ease;
 }
-.btn {
-    top: 50%;
+.inp:hover, input:focus {
+    border-color: var(--focus-inp-border-color);
+}
+.tooltipWrapper, .btn {
+    top: calc(50% + 2px);
     transform: translateY(-50%);
     right: 15px;
     color: var(--text-color-primary);
+}
+.btn.btnError {
+    color: var(--error-color);
+}
+.inp.error {
+    border-color: var(--error-color);
+}
+input:-webkit-autofill {
+    transition: background-color 9999s ease-in-out 0s, color 9999s ease-in-out 0s;
+    -webkit-text-fill-color: var(--text-color) !important;
+    box-shadow: 0 0 0px 1000px var(--bg-color) inset !important;
+}
+.labelCpntainer {
+    margin-bottom: 8px;
 }

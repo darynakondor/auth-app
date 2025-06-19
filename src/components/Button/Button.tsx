@@ -18,10 +18,10 @@ function Button({
   return (
     <button
       type={type}
-      className={`bg-color-btn text-color-btn ${styles.btn + className}`}
+      className={`bg-color-btn text-color-dark ${styles.btn + className}`}
       onClick={onClick}
     >
-      {children}
+      <span className={styles.btnText}>{children}</span>
     </button>
   );
 }

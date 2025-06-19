@@ -1,5 +1,5 @@
 export function validateEmail(email: string): string[] {
-  if (!email.trim()) return ["Емейл обов'язковий"];
+  if (!email.trim()) return ["Email обов'язковий"];
 
   const errors: string[] = [];
 
@@ -8,9 +8,17 @@ export function validateEmail(email: string): string[] {
   }
 
   if (!isEmailValid(email.trim())) {
-    errors.push("Email is invalid");
+    errors.push("Email введено невірно  ");
   }
   return errors;
+}
+export function validateRepeatedPassword(
+  password: string,
+  repeatPassword: string
+): string[] {
+  if (!repeatPassword || password != repeatPassword)
+    return ["Паролі не співпадають"];
+  return [];
 }
 export function validatePassword(password: string): string[] {
   if (!password.trim()) return ["Пароль обов'язковий"];

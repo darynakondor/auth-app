@@ -5,13 +5,20 @@ import { useAuthStore } from "../../store/useAuthStore";
 type Props = {
   isOpen: boolean;
   onClose: () => void;
+  text?: string;
 };
 
-function SuccessPopup({ isOpen, onClose }: Props) {
+function SuccessPopup({
+  isOpen,
+  onClose,
+  text = "Ваша авторизація успішна",
+}: Props) {
   const user = useAuthStore((s) => s.user);
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div>Дякуємо, {user}! Ваша авторизація успішна</div>
+      <div>
+        Дякуємо, {user}! {text}
+      </div>
     </Modal>
   );
 }

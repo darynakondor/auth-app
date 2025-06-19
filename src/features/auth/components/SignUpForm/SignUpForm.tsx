@@ -1,15 +1,15 @@
 "use client";
 import React from "react";
-import { useAuthForm } from "../../hooks/useAuthForm";
+import { useSignUpForm } from "../../hooks/useSignUpForm";
 import Input from "@/components/Input/Input";
 import { InputType } from "@/enums/InputType";
 import SuccessPopup from "../SuccessPopup/SuccessPopup";
 import Button from "@/components/Button/Button";
 import { ButtonType } from "@/enums/ButtonType";
 import Link from "next/link";
-import styles from "./AuthForm.module.css";
+import styles from "./SignUpForm.module.css";
 
-function AuthForm() {
+function SignUpForm() {
   const {
     email,
     setEmail,
@@ -21,7 +21,10 @@ function AuthForm() {
     validateForm,
     isSuccessPopupOpen,
     setIsSuccessPopupOpen,
-  } = useAuthForm();
+    repeatPassword,
+    repeatPasswordErrors,
+    setRepeatPassword,
+  } = useSignUpForm();
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     submit();
@@ -29,7 +32,7 @@ function AuthForm() {
 
   return (
     <div className={`${styles.formContainer} position-center relative`}>
-      <h1 className={`${styles.title} fz-l`}>Увійти</h1>
+      <h1 className={`${styles.title} fz-l`}>Реєстрація</h1>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={`${styles.inputs} flex-container`}>
           <div className={styles.inpContainer}>
@@ -66,17 +69,35 @@ function AuthForm() {
               }
             />
           </div>
+          <div className={styles.inpContainer}>
+            <Input
+              label="Повтор паролю"
+              onBlur={() => {
+                validateForm("repeatPassword", repeatPassword);
+              }}
+              name="repeatPassword"
+              placeholder="••••••"
+              errors={repeatPasswordErrors}
+              value={repeatPassword}
+              className={repeatPasswordErrors.length > 0 ? "error" : ""}
+              type={InputType.Password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setRepeatPassword(e.target.value)
+              }
+            />
+          </div>
         </div>
-        <Button type={ButtonType.Submit}>Увійти</Button>
+        <Button type={ButtonType.Submit}>Зареєструватися</Button>
       </form>
       <p className={`flex-container jc-center ${styles.formText}`}>
-        Ще немає аккаунту?{" "}
-        <Link className="link" href="/register">
-          Зареєструватися
+        Вже є аккаунт?{" "}
+        <Link className="link" href="/login">
+          Увійти
         </Link>
       </p>
       <SuccessPopup
         isOpen={isSuccessPopupOpen}
+        text="Ваша реєстрація успішна"
         onClose={() => {
           setIsSuccessPopupOpen(false);
         }}
@@ -85,4 +106,4 @@ function AuthForm() {
   );
 }
 
-export default AuthForm;
+export default SignUpForm;

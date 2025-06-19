@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "./Modal.module.css";
 import ReactDOM from "react-dom";
+import { FiX } from "react-icons/fi";
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -19,14 +20,20 @@ function Modal({ isOpen, onClose, children }: ModalProps) {
   });
   if (!isOpen) return null;
   return ReactDOM.createPortal(
-    <div className={styles.modalBackdrop} onClick={onClose}>
-      <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+    <div
+      className={`fixed backdrop-color ${styles.modalBackdrop}`}
+      onClick={onClose}
+    >
+      <div
+        className={`text-color-dark position-center absolute ${styles.modalContent}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
-          className={styles.modalCloseButton}
+          className={`absolute ${styles.modalCloseButton}`}
           onClick={onClose}
           aria-label="Close modal"
         >
-          x
+          <FiX size={20} />
         </button>
         {children}
       </div>
