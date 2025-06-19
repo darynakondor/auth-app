@@ -1,0 +1,22 @@
+.form {
+    margin-bottom: 30px;
+}
+.formСontainer {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 410px;
+}
+.formText {
+    gap: 8px;
+}
+.inputs {
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.title {
+    margin-bottom: 30px;
+}

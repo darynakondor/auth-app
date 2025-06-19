@@ -1,0 +1,15 @@
+.inpGroup {
+    flex-direction: column;
+    gap: 8px;
+}
+.inp {
+    width: 100%;
+    padding: 15px;
+    outline: none;
+}
+.btn {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    color: var(--text-color-primary);
+}

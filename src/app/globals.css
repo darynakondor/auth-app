@@ -1,3 +1,6 @@
+@import "../styles/variables.css";
+@import "../styles/theme.css";
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -5,5 +8,52 @@
 }
 
 body {
-  background-color: #FAFAFA;
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 500;
+  background-color: var(--bg-color-primary);
+  color: var(--text-color-primary);
+  height: 100vh;
+  font-size: var(--fz-s);
+}
+
+input {
+  color: inherit;
+}
+input, button {
+  font-size: inherit;
+  border-radius: 12px;
+  border: none;
+}
+button {
+  cursor: pointer;
+  font-weight: inherit;
+  background-color: transparent;
+}
+p {
+  font-weight: 400;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+.link {
+  text-decoration: none;
+}
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+
+.fz-l {
+  font-size: var(--fz-l);
+}
+
+.flex-container {
+  display: flex;
+}
+.jc-center {
+  justify-content: center;
 }

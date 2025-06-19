@@ -1,0 +1,18 @@
+.bg-color-primary {
+    background-color: var(--bg-color-primary);
+}
+.text-color-primary {
+    color: var(--text-color-primary);
+}
+.bg-color-btn {
+    background: var(--bg-color-btn);
+}
+.bg-color-input {
+    background-color: var(--dark-grey);
+}
+.text-color-btn {
+    color: var(--dark-grey);
+}
+.text-color-link {
+    color: var(--text-color-link);
+}

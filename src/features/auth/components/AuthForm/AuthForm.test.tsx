@@ -24,14 +24,14 @@ describe("AuthForm", () => {
     expect(
       screen.getByPlaceholderText("example@example.com")
     ).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("******")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("••••••")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /Увійти/i })).toBeInTheDocument();
   });
 
   it("shows validation errors on blur", async () => {
     render(<AuthForm />);
     const emailInput = screen.getByPlaceholderText("example@example.com");
-    const passwordInput = screen.getByPlaceholderText("******");
+    const passwordInput = screen.getByPlaceholderText("••••••");
 
     fireEvent.blur(emailInput);
     fireEvent.blur(passwordInput);
@@ -53,7 +53,7 @@ describe("AuthForm", () => {
   it("calls login on valid submission and resets form", async () => {
     render(<AuthForm />);
     const emailInput = screen.getByPlaceholderText("example@example.com");
-    const passwordInput = screen.getByPlaceholderText("******");
+    const passwordInput = screen.getByPlaceholderText("••••••");
     const submitButton = screen.getByRole("button", { name: /Увійти/i });
 
     await userEvent.type(emailInput, "test.user@test.com");

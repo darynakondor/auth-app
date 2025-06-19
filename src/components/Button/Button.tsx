@@ -1,5 +1,6 @@
 import { ButtonType } from "@/enums/ButtonType";
 import React from "react";
+import styles from "./Button.module.css";
 
 export interface ButtonProps {
   children: string;
@@ -15,7 +16,11 @@ function Button({
   className = "",
 }: ButtonProps) {
   return (
-    <button type={type} className={`btn ${className}`} onClick={onClick}>
+    <button
+      type={type}
+      className={`bg-color-btn text-color-btn ${styles.btn + className}`}
+      onClick={onClick}
+    >
       {children}
     </button>
   );

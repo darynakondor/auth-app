@@ -1,0 +1,15 @@
+:root {
+    /**************** Colors *****************/
+    --bg-color-primary: var(--Dark-Mode-2---Grey, #2F344B);
+    --text-color-primary: var(--Dark-Mode-7---White, #FFF);
+    --bg-color-btn: var(--Green-Gradient, linear-gradient(93deg, #3FD473 0%, #3CD39D 100%));
+    --dark-grey: var(--Dark-Mode-1---Grey, #242738);
+    --text-color-link: var(--Dark-Mode-Blue-Link, #82B1FF);
+
+    /*************** Font size ***************/
+    --fz-l: 32px;
+    --fz-s: 16px;
+}
+
+
+
