@@ -9,6 +9,10 @@ export function useAuthForm() {
   const [emailErrors, setEmailErrors] = useState<string[]>([]);
   const [passwordErrors, setPasswordErrors] = useState<string[]>([]);
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState<boolean>(false);
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false,
+  });
 
   const submit = () => {
     const isValid = validateAll();
@@ -21,33 +25,54 @@ export function useAuthForm() {
     setEmailErrors([]);
     setPasswordErrors([]);
   };
-  const validateForm = (field: "email" | "password", value: string) => {
+  const validateForm = (
+    field: "email" | "password" | "repeatPassword",
+    value: string,
+    touchedOverride = true
+  ) => {
     let errors: string[] = [];
 
     if (field === "email") {
       errors = validateEmail(value);
       setEmailErrors(errors);
+      if (touchedOverride) setTouched((prev) => ({ ...prev, email: true }));
     } else if (field === "password") {
       errors = validatePassword(value);
       setPasswordErrors(errors);
+      if (touchedOverride) setTouched((prev) => ({ ...prev, password: true }));
     }
 
     return errors;
   };
-  const validateAll = () => {
-    const emailErrs = validateEmail(email);
-    const passwordErrs = validatePassword(password);
 
+  const validateAll = () => {
+    const emailErrs = validateForm("email", email, true);
+    const passwordErrs = validateForm("password", password, true);
+    setTouched({
+      email: true,
+      password: true,
+    });
     setEmailErrors(emailErrs);
     setPasswordErrors(passwordErrs);
     return emailErrs.length === 0 && passwordErrs.length === 0;
   };
-  const handleChange = () => {
-    const validationEmail = validateEmail(email);
-    setEmailErrors(validationEmail);
-
-    const validationPassword = validatePassword(password);
-    setPasswordErrors(validationPassword);
+  const handleChange = (
+    field: "email" | "password" | "repeatPassword",
+    value: string
+  ) => {
+    if (field === "email") {
+      setEmail(value);
+      if (touched.email) {
+        const errs = validateEmail(value);
+        setEmailErrors(errs);
+      }
+    } else if (field === "password") {
+      setPassword(value);
+      if (touched.password) {
+        const errs = validatePassword(value);
+        setPasswordErrors(errs);
+      }
+    }
   };
 
   return {
@@ -62,5 +87,7 @@ export function useAuthForm() {
     isSuccessPopupOpen,
     setIsSuccessPopupOpen,
     validateForm,
+    touched,
+    setTouched,
   };
 }

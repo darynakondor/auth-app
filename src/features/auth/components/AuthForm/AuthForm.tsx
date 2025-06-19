@@ -21,6 +21,8 @@ function AuthForm() {
     validateForm,
     isSuccessPopupOpen,
     setIsSuccessPopupOpen,
+    handleChange,
+    touched,
   } = useAuthForm();
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,35 +37,27 @@ function AuthForm() {
           <div className={styles.inpContainer}>
             <Input
               label="Email"
-              onBlur={() => {
-                validateForm("email", email);
-              }}
               type={InputType.Email}
               name="email"
               placeholder="example@example.com"
               value={email}
-              errors={emailErrors}
               className={emailErrors.length > 0 ? "error" : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
+              errors={touched.email ? emailErrors : []}
+              onBlur={() => validateForm("email", email)}
+              onChange={(e) => handleChange("email", e.target.value)}
             />
           </div>
           <div className={styles.inpContainer}>
             <Input
               label="Пароль"
-              onBlur={() => {
-                validateForm("password", password);
-              }}
               name="password"
               placeholder="••••••"
-              errors={passwordErrors}
               value={password}
               className={passwordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              errors={touched.password ? passwordErrors : []}
+              onBlur={() => validateForm("password", password)}
+              onChange={(e) => handleChange("password", e.target.value)}
             />
           </div>
         </div>

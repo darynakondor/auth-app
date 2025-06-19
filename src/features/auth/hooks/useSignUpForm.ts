@@ -17,6 +17,11 @@ export function useSignUpForm() {
     []
   );
   const [isSuccessPopupOpen, setIsSuccessPopupOpen] = useState<boolean>(false);
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false,
+    repeatPassword: false,
+  });
 
   const submit = () => {
     const isValid = validateAll();
@@ -33,30 +38,42 @@ export function useSignUpForm() {
   };
   const validateForm = (
     field: "email" | "password" | "repeatPassword",
-    value: string
+    value: string,
+    touchedOverride = true
   ) => {
     let errors: string[] = [];
 
     if (field === "email") {
       errors = validateEmail(value);
       setEmailErrors(errors);
+      if (touchedOverride) setTouched((prev) => ({ ...prev, email: true }));
     } else if (field === "password") {
       errors = validatePassword(value);
       setPasswordErrors(errors);
+      if (touchedOverride) setTouched((prev) => ({ ...prev, password: true }));
     } else if (field === "repeatPassword") {
-      errors = validateRepeatedPassword(password, repeatPassword);
+      errors = validateRepeatedPassword(password, value);
       setRepeatPasswordErrors(errors);
+      if (touchedOverride)
+        setTouched((prev) => ({ ...prev, repeatPassword: true }));
     }
 
     return errors;
   };
+
   const validateAll = () => {
-    const emailErrs = validateEmail(email);
-    const passwordErrs = validatePassword(password);
-    const repeatPasswordErrors = validateRepeatedPassword(
-      password,
-      repeatPassword
+    const emailErrs = validateForm("email", email, true);
+    const passwordErrs = validateForm("password", password, true);
+    const repeatPasswordErrors = validateForm(
+      "repeatPassword",
+      repeatPassword,
+      true
     );
+    setTouched({
+      email: true,
+      password: true,
+      repeatPassword: true,
+    });
     setEmailErrors(emailErrs);
     setPasswordErrors(passwordErrs);
     setRepeatPasswordErrors(repeatPasswordErrors);
@@ -66,12 +83,29 @@ export function useSignUpForm() {
       repeatPasswordErrors.length === 0
     );
   };
-  const handleChange = () => {
-    const validationEmail = validateEmail(email);
-    setEmailErrors(validationEmail);
-
-    const validationPassword = validatePassword(password);
-    setPasswordErrors(validationPassword);
+  const handleChange = (
+    field: "email" | "password" | "repeatPassword",
+    value: string
+  ) => {
+    if (field === "email") {
+      setEmail(value);
+      if (touched.email) {
+        const errs = validateEmail(value);
+        setEmailErrors(errs);
+      }
+    } else if (field === "password") {
+      setPassword(value);
+      if (touched.password) {
+        const errs = validatePassword(value);
+        setPasswordErrors(errs);
+      }
+    } else if (field === "repeatPassword") {
+      setRepeatPassword(value);
+      if (touched.repeatPassword) {
+        const errs = validateRepeatedPassword(password, value);
+        setRepeatPasswordErrors(errs);
+      }
+    }
   };
 
   return {
@@ -90,5 +124,7 @@ export function useSignUpForm() {
     validateForm,
     repeatPasswordErrors,
     setRepeatPasswordErrors,
+    touched,
+    setTouched,
   };
 }

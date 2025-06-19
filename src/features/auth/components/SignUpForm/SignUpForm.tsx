@@ -12,9 +12,7 @@ import styles from "./SignUpForm.module.css";
 function SignUpForm() {
   const {
     email,
-    setEmail,
     password,
-    setPassword,
     emailErrors,
     passwordErrors,
     submit,
@@ -23,7 +21,8 @@ function SignUpForm() {
     setIsSuccessPopupOpen,
     repeatPassword,
     repeatPasswordErrors,
-    setRepeatPassword,
+    handleChange,
+    touched,
   } = useSignUpForm();
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -38,52 +37,40 @@ function SignUpForm() {
           <div className={styles.inpContainer}>
             <Input
               label="Email"
-              onBlur={() => {
-                validateForm("email", email);
-              }}
               type={InputType.Email}
               name="email"
               placeholder="example@example.com"
               value={email}
-              errors={emailErrors}
+              errors={touched.email ? emailErrors : []}
+              onBlur={() => validateForm("email", email)}
+              onChange={(e) => handleChange("email", e.target.value)}
               className={emailErrors.length > 0 ? "error" : ""}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
             />
           </div>
           <div className={styles.inpContainer}>
             <Input
               label="Пароль"
-              onBlur={() => {
-                validateForm("password", password);
-              }}
               name="password"
               placeholder="••••••"
-              errors={passwordErrors}
               value={password}
               className={passwordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPassword(e.target.value)
-              }
+              errors={touched.password ? passwordErrors : []}
+              onBlur={() => validateForm("password", password)}
+              onChange={(e) => handleChange("password", e.target.value)}
             />
           </div>
           <div className={styles.inpContainer}>
             <Input
               label="Повтор паролю"
-              onBlur={() => {
-                validateForm("repeatPassword", repeatPassword);
-              }}
               name="repeatPassword"
               placeholder="••••••"
-              errors={repeatPasswordErrors}
               value={repeatPassword}
               className={repeatPasswordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setRepeatPassword(e.target.value)
-              }
+              errors={touched.repeatPassword ? repeatPasswordErrors : []}
+              onBlur={() => validateForm("repeatPassword", repeatPassword)}
+              onChange={(e) => handleChange("repeatPassword", e.target.value)}
             />
           </div>
         </div>
