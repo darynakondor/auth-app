@@ -12,9 +12,7 @@ import styles from "./AuthForm.module.css";
 function AuthForm() {
   const {
     email,
-    setEmail,
     password,
-    setPassword,
     emailErrors,
     passwordErrors,
     submit,
