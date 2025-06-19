@@ -80,7 +80,7 @@ function Input({
               onMouseLeave={() => setShowTooltip(false)}
               aria-label="Toggle error text visibility"
             >
-              {showTooltip ? (
+              {showTooltip && isPassword ? (
                 showPassword ? (
                   <FiEyeOff size={16} />
                 ) : (
