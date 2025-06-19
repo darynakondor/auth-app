@@ -36,7 +36,7 @@ describe("AuthForm", () => {
     fireEvent.blur(emailInput);
     fireEvent.blur(passwordInput);
 
-    expect(await screen.findByText(/Емейл обов'язковий/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Email обов'язковий/i)).toBeInTheDocument();
     expect(await screen.findByText(/Пароль обов'язковий/i)).toBeInTheDocument();
   });
 
@@ -46,7 +46,7 @@ describe("AuthForm", () => {
 
     fireEvent.click(submitButton);
 
-    expect(await screen.findByText(/Емейл обов'язковий/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Email обов'язковий/i)).toBeInTheDocument();
     expect(mockLogin).not.toHaveBeenCalled();
   });
 
