@@ -1,7 +1,7 @@
 .inp {
     border: 1px solid var(--dark-grey);
     width: 100%;
-    padding: 15px;
+    padding: 15px 40px 15px 15px;
     outline: none;
     transition: .3s ease;
 }

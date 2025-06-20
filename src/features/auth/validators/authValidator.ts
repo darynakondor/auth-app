@@ -1,14 +1,15 @@
 export function validateEmail(email: string): string[] {
   if (!email.trim()) return ["Email обов'язковий"];
-
+  if (!email.includes("@")) return ["Email введено невірно"];
+  if (email.length > 320) return ["Email введено невірно"];
   const errors: string[] = [];
 
   function isEmailValid(email: string): boolean {
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/gi.test(email);
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/i.test(email);
   }
 
   if (!isEmailValid(email.trim())) {
-    errors.push("Email введено невірно  ");
+    errors.push("Email введено невірно");
   }
   return errors;
 }
