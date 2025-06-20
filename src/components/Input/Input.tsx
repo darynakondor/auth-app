@@ -64,7 +64,10 @@ function Input({
           <button
             type="button"
             className={`absolute ${styles.btn}`}
-            onClick={() => setShowPassword((prev) => !prev)}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              setShowPassword((prev) => !prev);
+            }}
             aria-label="Toggle password visibility"
           >
             {showPassword ? <FiEyeOff size={16} /> : <FiEye size={16} />}
@@ -76,8 +79,11 @@ function Input({
               type="button"
               className={`absolute ${styles.btnError} ${styles.btn}`}
               onMouseEnter={() => setShowTooltip(true)}
-              onClick={() => setShowPassword((prev) => !prev)}
               onMouseLeave={() => setShowTooltip(false)}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                setShowPassword((prev) => !prev);
+              }}
               aria-label="Toggle error text visibility"
             >
               {showTooltip && isPassword ? (
