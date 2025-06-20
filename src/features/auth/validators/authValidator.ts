@@ -41,17 +41,17 @@ export function validatePassword(password: string): string[] {
   }
 
   if (password.length < 6)
-    errors.push("Мінімальна довжина паролю - 6 символів!");
+    errors.push("Мінімальна довжина паролю - 6 символів");
   if (password.length > 255)
-    errors.push("Максимальна довжина паролю - 255 символів!");
+    errors.push("Максимальна довжина паролю - 255 символів");
   if (!containsLowerCaseLetter(password))
-    errors.push("Пароль повинен мати хочаб одну велику літеру!");
+    errors.push("Пароль повинен мати хочаб одну малу літеру");
   if (!containsUpperCaseLetter(password))
-    errors.push("Пароль повинен містити хоча б одну велику літеру!");
+    errors.push("Пароль повинен містити хоча б одну велику літеру");
   if (!containsDigit(password))
-    errors.push("Пароль повинен містити щонайменше одну цифру!");
+    errors.push("Пароль повинен містити щонайменше одну цифру");
   if (!containsSpecialCharacter(password))
-    errors.push("Пароль повинен містити хоча б один спеціальний символ!");
+    errors.push("Пароль повинен містити хоча б один спеціальний символ");
 
   return errors;
 }
