@@ -43,6 +43,9 @@ button {
 p {
   font-weight: 400;
 }
+.list-style-none {
+  list-style: none;
+}
 .link {
   color: var(--text-color-link);
   position: relative;

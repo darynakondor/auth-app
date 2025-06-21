@@ -12,6 +12,7 @@ interface InputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   label?: string;
   errors?: string[];
 }
@@ -24,6 +25,7 @@ function Input({
   onChange,
   className = "",
   onBlur,
+  onFocus,
   label = "",
   errors = [],
 }: InputProps) {
@@ -51,7 +53,10 @@ function Input({
         <input
           id={inputId}
           onBlur={onBlur}
-          onFocus={() => setShowTooltip(false)}
+          onFocus={(e) => {
+            setShowTooltip(false);
+            if (onFocus) onFocus(e);
+          }}
           type={inputType}
           name={name}
           value={value}

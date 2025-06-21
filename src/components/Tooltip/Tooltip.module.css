@@ -1,16 +1,22 @@
 .tooltipWrapper {
-    width: 80%;
+    width: 75%;
     right: 15px;
     top: -7px;
     transform: translateY(-100%);
     background-color: var(--error-color);
-    padding: 8px 10px;
     opacity: 0;
     visibility: hidden;
     transition: opacity .3s ease;
     border-radius: 3px 3px 0 3px;
 }
-
+.list {
+    flex-direction: column;
+    gap: 3px;
+    padding: 18px 8px 8px 20px;
+}
+.listStyleNone {
+    padding-left: 8px;
+}
 .tooltipTriangle {
     position: absolute;
     bottom: -5px;
@@ -23,4 +29,8 @@
 .tooltipWrapper.show {
     visibility: visible;
     opacity: 1;
+}
+.closeButton {
+    right: 4px;
+    top: 4px;
 }

@@ -13,7 +13,6 @@ export function useAuthForm() {
     email: false,
     password: false,
   });
-
   const submit = () => {
     const isValid = validateAll();
     if (!isValid) return;

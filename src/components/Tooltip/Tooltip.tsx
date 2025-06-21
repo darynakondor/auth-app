@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Tooltip.module.css";
+import { FiX } from "react-icons/fi";
 
 interface TooltipProps {
   content: string[];
@@ -8,18 +9,27 @@ interface TooltipProps {
 }
 
 function Tooltip({ content, visible, onClose }: TooltipProps) {
+  if (!visible) return null;
   return (
-    <div
-      onClick={onClose}
-      className={`absolute cursor-pointer fz-xs ${styles.tooltipWrapper} ${
-        visible ? styles.show : ""
-      }`}
-    >
-      <div className={styles.tooltip}>
+    <div className={`absolute fz-xs ${styles.tooltipWrapper} ${styles.show}`}>
+      <button
+        onClick={onClose}
+        className={`absolute ${styles.closeButton}`}
+        aria-label="Close tooltip"
+      >
+        <FiX size={16} />
+      </button>
+      <ul
+        className={`flex-container ${
+          content.length === 1 ? `list-style-none ${styles.listStyleNone}` : ""
+        } ${styles.list}`}
+      >
         {content.map((err, i) => (
-          <p key={i}>{err}</p>
+          <li key={i}>
+            <p className="text">{err}</p>
+          </li>
         ))}
-      </div>
+      </ul>
       <div className={styles.tooltipTriangle}></div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useAuthForm } from "../../hooks/useAuthForm";
 import Input from "@/components/Input/Input";
 import { InputType } from "@/enums/InputType";
@@ -22,6 +22,18 @@ function AuthForm() {
     handleChange,
     touched,
   } = useAuthForm();
+
+  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
+
+  function getPasswordErrorsForDisplay(
+    errors: string[],
+    value: string,
+    isFocused: boolean
+  ): string[] {
+    if (!value.trim()) return ["Пароль обов'язковий"];
+    return isFocused ? errors : ["Пароль має бути надійним"];
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     submit();
@@ -53,8 +65,22 @@ function AuthForm() {
               value={password}
               className={passwordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              errors={touched.password ? passwordErrors : []}
-              onBlur={() => validateForm("password", password)}
+              errors={
+                touched.password
+                  ? isPasswordFocused
+                    ? passwordErrors
+                    : getPasswordErrorsForDisplay(
+                        passwordErrors,
+                        password,
+                        isPasswordFocused
+                      )
+                  : []
+              }
+              onFocus={() => setIsPasswordFocused(true)}
+              onBlur={() => {
+                setIsPasswordFocused(false);
+                validateForm("password", password);
+              }}
               onChange={(e) => handleChange("password", e.target.value)}
             />
           </div>

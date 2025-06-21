@@ -21,9 +21,11 @@ export function validateRepeatedPassword(
     return ["Паролі не співпадають"];
   return [];
 }
-export function validatePassword(password: string): string[] {
+export function passwordIsRequired(password: string) {
   if (!password.trim()) return ["Пароль обов'язковий"];
-
+}
+export function validatePassword(password: string): string[] {
+  passwordIsRequired(password);
   const errors: string[] = [];
   password = password.trim();
 
