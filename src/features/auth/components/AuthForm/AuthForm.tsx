@@ -31,6 +31,7 @@ function AuthForm() {
     isFocused: boolean
   ): string[] {
     if (!value.trim()) return ["Пароль обов'язковий"];
+    if (errors.length === 0) return [];
     return isFocused ? errors : ["Пароль має бути надійним"];
   }
 
@@ -78,7 +79,7 @@ function AuthForm() {
               }
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => {
-                setIsPasswordFocused(false);
+                if (passwordErrors.length > 0) setIsPasswordFocused(false);
                 validateForm("password", password);
               }}
               onChange={(e) => handleChange("password", e.target.value)}

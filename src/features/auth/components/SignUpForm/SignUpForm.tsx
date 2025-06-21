@@ -32,6 +32,7 @@ function SignUpForm() {
     isFocused: boolean
   ): string[] {
     if (!value.trim()) return ["Пароль обов'язковий"];
+    if (errors.length === 0) return [];
     return isFocused ? errors : ["Пароль має бути надійним"];
   }
 
@@ -79,7 +80,7 @@ function SignUpForm() {
               }
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => {
-                setIsPasswordFocused(false);
+                if (passwordErrors.length > 0) setIsPasswordFocused(false);
                 validateForm("password", password);
               }}
               onChange={(e) => handleChange("password", e.target.value)}
