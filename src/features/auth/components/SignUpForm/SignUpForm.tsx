@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useSignUpForm } from "../../hooks/useSignUpForm";
 import Input from "@/components/Input/Input";
 import { InputType } from "@/enums/InputType";
