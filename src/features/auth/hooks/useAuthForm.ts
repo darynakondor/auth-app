@@ -13,7 +13,9 @@ export function useAuthForm() {
     email: false,
     password: false,
   });
+  const [wasSubmitted, setWasSubmitted] = useState(false);
   const submit = () => {
+    setWasSubmitted(true);
     const isValid = validateAll();
     if (!isValid) return;
     login(email, password);
@@ -23,9 +25,10 @@ export function useAuthForm() {
     setPassword("");
     setEmailErrors([]);
     setPasswordErrors([]);
+    setWasSubmitted(false);
   };
   const validateForm = (
-    field: "email" | "password" | "repeatPassword",
+    field: "email" | "password",
     value: string,
     touchedOverride = true
   ) => {
@@ -86,7 +89,6 @@ export function useAuthForm() {
     isSuccessPopupOpen,
     setIsSuccessPopupOpen,
     validateForm,
-    touched,
-    setTouched,
+    wasSubmitted,
   };
 }

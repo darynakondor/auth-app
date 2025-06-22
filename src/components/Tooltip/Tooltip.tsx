@@ -13,7 +13,7 @@ function Tooltip({ content, visible, onClose }: TooltipProps) {
   return (
     <div className={`absolute fz-xs ${styles.tooltipWrapper} ${styles.show}`}>
       <button
-        onClick={onClose}
+        onMouseDown={onClose}
         className={`absolute ${styles.closeButton}`}
         aria-label="Close tooltip"
       >

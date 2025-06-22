@@ -22,19 +22,9 @@ function SignUpForm() {
     repeatPassword,
     repeatPasswordErrors,
     handleChange,
-    touched,
+    wasSubmitted,
   } = useSignUpForm();
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
-  function getPasswordErrorsForDisplay(
-    errors: string[],
-    value: string,
-    isFocused: boolean
-  ): string[] {
-    if (!value.trim()) return ["Пароль обов'язковий"];
-    if (errors.length === 0) return [];
-    return isFocused ? errors : ["Пароль має бути надійним"];
-  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -53,10 +43,11 @@ function SignUpForm() {
               name="email"
               placeholder="example@example.com"
               value={email}
-              errors={touched.email ? emailErrors : []}
+              errors={emailErrors}
               onBlur={() => validateForm("email", email)}
               onChange={(e) => handleChange("email", e.target.value)}
               className={emailErrors.length > 0 ? "error" : ""}
+              forceShowError={wasSubmitted}
             />
           </div>
           <div className={styles.inpContainer}>
@@ -67,23 +58,21 @@ function SignUpForm() {
               value={password}
               className={passwordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              errors={
-                touched.password
-                  ? isPasswordFocused
-                    ? passwordErrors
-                    : getPasswordErrorsForDisplay(
-                        passwordErrors,
-                        password,
-                        isPasswordFocused
-                      )
-                  : []
+              displayError={
+                !password.trim()
+                  ? "Пароль обов'язковий"
+                  : passwordErrors.length > 0
+                  ? "Пароль має бути надійним"
+                  : ""
               }
+              errors={passwordErrors}
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => {
                 if (passwordErrors.length > 0) setIsPasswordFocused(false);
                 validateForm("password", password);
               }}
               onChange={(e) => handleChange("password", e.target.value)}
+              forceShowError={wasSubmitted}
             />
           </div>
           <div className={styles.inpContainer}>
@@ -94,7 +83,7 @@ function SignUpForm() {
               value={repeatPassword}
               className={repeatPasswordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              errors={touched.repeatPassword ? repeatPasswordErrors : []}
+              errors={repeatPasswordErrors}
               onBlur={() => validateForm("repeatPassword", repeatPassword)}
               onChange={(e) => handleChange("repeatPassword", e.target.value)}
             />

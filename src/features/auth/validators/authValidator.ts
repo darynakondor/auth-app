@@ -21,12 +21,14 @@ export function validateRepeatedPassword(
     return ["Паролі не співпадають"];
   return [];
 }
-export function passwordIsRequired(password: string) {
-  if (!password.trim()) return ["Пароль обов'язковий"];
-}
 export function validatePassword(password: string): string[] {
-  passwordIsRequired(password);
   const errors: string[] = [];
+
+  if (!password.trim()) {
+    errors.push("Пароль обов'язковий");
+    return errors;
+  }
+
   password = password.trim();
 
   function containsLowerCaseLetter(password: string): boolean {

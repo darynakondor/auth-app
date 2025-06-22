@@ -22,8 +22,10 @@ export function useSignUpForm() {
     password: false,
     repeatPassword: false,
   });
+  const [wasSubmitted, setWasSubmitted] = useState(false);
 
   const submit = () => {
+    setWasSubmitted(true);
     const isValid = validateAll();
     if (!isValid) return;
     login(email, password);
@@ -124,7 +126,6 @@ export function useSignUpForm() {
     validateForm,
     repeatPasswordErrors,
     setRepeatPasswordErrors,
-    touched,
-    setTouched,
+    wasSubmitted,
   };
 }

@@ -20,20 +20,10 @@ function AuthForm() {
     isSuccessPopupOpen,
     setIsSuccessPopupOpen,
     handleChange,
-    touched,
+    wasSubmitted,
   } = useAuthForm();
 
   const [isPasswordFocused, setIsPasswordFocused] = useState(false);
-
-  function getPasswordErrorsForDisplay(
-    errors: string[],
-    value: string,
-    isFocused: boolean
-  ): string[] {
-    if (!value.trim()) return ["Пароль обов'язковий"];
-    if (errors.length === 0) return [];
-    return isFocused ? errors : ["Пароль має бути надійним"];
-  }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -53,9 +43,10 @@ function AuthForm() {
               placeholder="example@example.com"
               value={email}
               className={emailErrors.length > 0 ? "error" : ""}
-              errors={touched.email ? emailErrors : []}
+              errors={emailErrors}
               onBlur={() => validateForm("email", email)}
               onChange={(e) => handleChange("email", e.target.value)}
+              forceShowError={wasSubmitted}
             />
           </div>
           <div className={styles.inpContainer}>
@@ -66,23 +57,21 @@ function AuthForm() {
               value={password}
               className={passwordErrors.length > 0 ? "error" : ""}
               type={InputType.Password}
-              errors={
-                touched.password
-                  ? isPasswordFocused
-                    ? passwordErrors
-                    : getPasswordErrorsForDisplay(
-                        passwordErrors,
-                        password,
-                        isPasswordFocused
-                      )
-                  : []
+              displayError={
+                !password.trim()
+                  ? "Пароль обов'язковий"
+                  : passwordErrors.length > 0
+                  ? "Пароль має бути надійним"
+                  : ""
               }
+              errors={passwordErrors}
               onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => {
                 if (passwordErrors.length > 0) setIsPasswordFocused(false);
                 validateForm("password", password);
               }}
               onChange={(e) => handleChange("password", e.target.value)}
+              forceShowError={wasSubmitted}
             />
           </div>
         </div>

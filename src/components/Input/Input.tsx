@@ -15,6 +15,8 @@ interface InputProps {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   label?: string;
   errors?: string[];
+  displayError?: string;
+  forceShowError?: boolean;
 }
 
 function Input({
@@ -28,17 +30,47 @@ function Input({
   onFocus,
   label = "",
   errors = [],
+  displayError = "",
+  forceShowError = false,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const [wasBlurred, setWasBlurred] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [wasTooltipClosedManually, setWasTooltipClosedManually] =
+    useState(false);
   const inputId = useId();
 
   const isPassword = type === InputType.Password;
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
   useEffect(() => {
-    setShowTooltip(errors.length > 0);
-  }, [errors]);
+    if ((wasBlurred || forceShowError) && errors.length > 0) {
+      if (!wasTooltipClosedManually) {
+        setShowTooltip(true);
+      }
+      setWasBlurred(false);
+    }
+  }, [errors, wasBlurred, wasTooltipClosedManually]);
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setWasBlurred(true);
+    setIsFocused(false);
+    onBlur?.(e);
+  };
+
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    setShowTooltip(false);
+    setIsFocused(true);
+    onFocus?.(e);
+  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    if (errors.length > 0) {
+      setShowTooltip(true);
+    } else {
+      setShowTooltip(false);
+    }
+  };
 
   return (
     <>
@@ -52,16 +84,13 @@ function Input({
       <div className="relative">
         <input
           id={inputId}
-          onBlur={onBlur}
-          onFocus={(e) => {
-            setShowTooltip(false);
-            if (onFocus) onFocus(e);
-          }}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
           type={inputType}
           name={name}
           value={value}
           placeholder={placeholder}
-          onChange={onChange}
+          onChange={handleChange}
           className={`bg-color-input ${styles.inp} ${styles[className]}`}
         />
 
@@ -102,9 +131,18 @@ function Input({
               )}
             </button>
             <Tooltip
-              content={errors}
+              content={
+                errors.length > 0
+                  ? isFocused
+                    ? errors
+                    : displayError
+                    ? [displayError]
+                    : errors
+                  : []
+              }
               onClose={() => {
-                if (showTooltip) setShowTooltip(false);
+                setWasTooltipClosedManually(true);
+                setShowTooltip(false);
               }}
               visible={showTooltip}
             />
