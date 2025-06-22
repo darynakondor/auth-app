@@ -51,7 +51,7 @@ function Input({
       }
       setWasBlurred(false);
     }
-  }, [errors, wasBlurred, wasTooltipClosedManually]);
+  }, [errors, wasBlurred, wasTooltipClosedManually, forceShowError]);
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setWasBlurred(true);
     setIsFocused(false);

@@ -24,7 +24,6 @@ function SignUpForm() {
     handleChange,
     wasSubmitted,
   } = useSignUpForm();
-  const [isPasswordFocused, setIsPasswordFocused] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -66,9 +65,7 @@ function SignUpForm() {
                   : ""
               }
               errors={passwordErrors}
-              onFocus={() => setIsPasswordFocused(true)}
               onBlur={() => {
-                if (passwordErrors.length > 0) setIsPasswordFocused(false);
                 validateForm("password", password);
               }}
               onChange={(e) => handleChange("password", e.target.value)}
@@ -86,6 +83,7 @@ function SignUpForm() {
               errors={repeatPasswordErrors}
               onBlur={() => validateForm("repeatPassword", repeatPassword)}
               onChange={(e) => handleChange("repeatPassword", e.target.value)}
+              forceShowError={wasSubmitted}
             />
           </div>
         </div>
